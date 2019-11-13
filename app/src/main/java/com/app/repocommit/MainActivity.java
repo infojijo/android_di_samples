@@ -12,7 +12,7 @@ public class MainActivity extends DaggerAppCompatActivity {
     private static final String TAG = "MainActivity";
 
     @Inject
-    String appName;
+    String appName; // field injection
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
