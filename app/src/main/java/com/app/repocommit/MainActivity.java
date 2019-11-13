@@ -18,6 +18,7 @@ public class MainActivity extends DaggerAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //appName is injected
         Log.d(TAG, "onCreate: " + appName);
     }
 }
