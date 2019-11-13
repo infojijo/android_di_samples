@@ -9,5 +9,6 @@ public class ApplicationModule {
     @Provides
     static String getAppName(){
         return "Android DI App";
+
     }
 }
