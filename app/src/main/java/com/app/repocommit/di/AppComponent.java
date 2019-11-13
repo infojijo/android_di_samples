@@ -10,7 +10,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
 //interface act as the controller in this DI framework.
 
 @Component(modules = {
-        AndroidSupportInjectionModule.class //to enable Android injection in the app.
+        AndroidSupportInjectionModule.class,//to enable Android injection in the app.
+        ActvityBuilderModule.class, //to handle activity building.
 
 })
 public interface AppComponent extends AndroidInjector<BaseApplication> {
