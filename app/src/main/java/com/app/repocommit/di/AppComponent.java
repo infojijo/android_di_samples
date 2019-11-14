@@ -1,5 +1,7 @@
 package com.app.repocommit.di;
 
+import android.app.Application;
+
 import com.app.repocommit.BaseApplication;
 
 import dagger.BindsInstance;
@@ -9,23 +11,20 @@ import dagger.android.support.AndroidSupportInjectionModule;
 
 //interface act as the controller in this DI framework.
 
-@Component(modules = {
-        AndroidSupportInjectionModule.class,//to enable Android injection in the app.
-        ActvityBuilderModule.class, //to handle activity building.
-        ApplicationModule.class
-
-})
+@Component(
+        modules = {
+                AndroidSupportInjectionModule.class,
+                ActvityBuilderModule.class,
+                ApplicationModule.class,
+        })
 public interface AppComponent extends AndroidInjector<BaseApplication> {
 
-    //overriding the builder class
     @Component.Builder
-    interface Builder {
+    interface Builder{
 
         @BindsInstance
-        Builder bindAppBase(BaseApplication application);
-        //binds instance of BaseApplication to AppComponent via Builder.
+        Builder application(Application application);
 
-        AppComponent buildMyAppComponent();
-        //returns the AppComponent instance.
+        AppComponent build();
     }
 }
