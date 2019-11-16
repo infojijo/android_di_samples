@@ -1,6 +1,6 @@
 package com.app.repocommit.di;
 
-import com.app.repocommit.MainActivity;
+import com.app.repocommit.ui.MainActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
