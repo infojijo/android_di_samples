@@ -8,32 +8,35 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 
+import javax.inject.Singleton;
+
 import androidx.core.content.ContextCompat;
 import dagger.Module;
 import dagger.Provides;
 
 /*submodule other than activity provider.
 
-* */
+ * */
 @Module
-public class ApplicationModule
-    {
-
-        @Provides //image placeholder,error holder
-        static RequestOptions provideRequestOptions(){
+public class ApplicationModule {
+    @Singleton // scope added to the component
+    @Provides //image placeholder,error holder
+    static RequestOptions provideRequestOptions() {
         return RequestOptions
                 .placeholderOf(R.drawable.white_background)
                 .error(R.drawable.white_background);
     }
 
-        @Provides //glide object
-        static RequestManager provideGlideInstance(Application application, RequestOptions requestOptions){
+    @Singleton // scope added to the component
+    @Provides //glide object
+    static RequestManager provideGlideInstance(Application application, RequestOptions requestOptions) {
         return Glide.with(application)
                 .setDefaultRequestOptions(requestOptions);
     }
 
-        @Provides // drawable object
-        static Drawable provideAppDrawable(Application application){
+    @Singleton // scope added to the component
+    @Provides // drawable object
+    static Drawable provideAppDrawable(Application application) {
         return ContextCompat.getDrawable(application, R.drawable.logo);
     }
-    }
+}
