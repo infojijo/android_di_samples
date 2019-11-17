@@ -9,6 +9,7 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 abstract public class ActvityBuilderModule {
 
+    //Sub-component for MainActivity
     @ContributesAndroidInjector(modules = MainActivityViewModelModule.class)
     abstract MainActivity provideMainActivity(); //providing(injecting) MainActivity to AppComponent.
 
