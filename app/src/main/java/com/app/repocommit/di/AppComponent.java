@@ -11,6 +11,7 @@ import dagger.Component;
 import dagger.android.AndroidInjector;
 import dagger.android.support.AndroidSupportInjectionModule;
 
+
 //interface act as the controller in this DI framework.
 @Singleton // scope added to the component
 @Component(
