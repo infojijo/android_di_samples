@@ -1,13 +1,16 @@
 package com.app.repocommit.ui;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.app.repocommit.R;
 import com.app.repocommit.models.User;
@@ -16,9 +19,6 @@ import com.bumptech.glide.RequestManager;
 
 import javax.inject.Inject;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import dagger.android.support.DaggerAppCompatActivity;
@@ -31,7 +31,7 @@ public class MainActivity extends DaggerAppCompatActivity implements View.OnClic
     private AuthViewModel authViewModel;
     private EditText userName;
     private Button userLogin;
-
+    private TextView userLoginStatus;
     //Viewmodel factory injection
     @Inject
     ViewModelProviderFactory providerFactory;
@@ -56,6 +56,7 @@ public class MainActivity extends DaggerAppCompatActivity implements View.OnClic
         userName = findViewById(R.id.editText);
         userLogin = findViewById(R.id.login_button);
         userLogin.setOnClickListener(this);
+        userLoginStatus = findViewById(R.id.txtUserLoggedIn);
 
         authViewModel.observerUser().observe(this, new Observer<User>() {
             @Override
@@ -65,6 +66,12 @@ public class MainActivity extends DaggerAppCompatActivity implements View.OnClic
                         + user.getUsername()
                         + "::"
                         + user.getEmail());
+
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
+                userLoginStatus.setText(user.getUsername() + " Logged In");
+
             }
         });
     }

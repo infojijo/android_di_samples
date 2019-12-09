@@ -1,7 +1,6 @@
 package com.app.repocommit.ui;
 
 import android.util.Log;
-import android.widget.EditText;
 
 import com.app.repocommit.models.User;
 import com.app.repocommit.network.auth.AuthApi;
@@ -13,7 +12,6 @@ import androidx.lifecycle.LiveDataReactiveStreams;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
-import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
 
 public class AuthViewModel extends ViewModel {
