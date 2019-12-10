@@ -9,8 +9,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.lang.annotation.Retention;
-
 import javax.inject.Singleton;
 
 import androidx.core.content.ContextCompat;
