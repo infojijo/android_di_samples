@@ -1,6 +1,7 @@
 package com.app.repocommit.ui.auth;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,22 +17,20 @@ import android.widget.Toast;
 
 import com.app.repocommit.R;
 import com.app.repocommit.models.User;
+import com.app.repocommit.ui.main.MainActivity;
 import com.app.repocommit.viewmodel.ViewModelProviderFactory;
 import com.bumptech.glide.RequestManager;
 
 import javax.inject.Inject;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import dagger.android.support.DaggerAppCompatActivity;
 
-public class MainActivity extends DaggerAppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends DaggerAppCompatActivity implements View.OnClickListener {
 
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "LoginActivity";
 
     private AuthViewModel authViewModel;
     private EditText userName;
@@ -51,7 +50,7 @@ public class MainActivity extends DaggerAppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
         setLogo();
 
         //instantiating the viewmodel factory
@@ -68,7 +67,7 @@ public class MainActivity extends DaggerAppCompatActivity implements View.OnClic
     }
 
     public void subscribeObservers() {
-        authViewModel.observerUser().observe(this, new Observer<AuthResource<User>>() {
+        authViewModel.observeAuthState().observe(this, new Observer<AuthResource<User>>() {
             @Override
             public void onChanged(AuthResource<User> userAuthResource) {
 
@@ -107,13 +106,15 @@ public class MainActivity extends DaggerAppCompatActivity implements View.OnClic
     }
 
     private void showLoginDetails(AuthResource<User> user) {
-
         //hiding the soft keyboard
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         //setting the text
         userLoginStatus.setText(user.data.getEmail() + " Logged In");
+        Log.d(TAG, "showLoginDetails: - LoggedIn");
 
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     private void showProgressBar(boolean isVisible) {
@@ -139,7 +140,5 @@ public class MainActivity extends DaggerAppCompatActivity implements View.OnClic
                 break;
             }
         }
-
     }
-
 }
