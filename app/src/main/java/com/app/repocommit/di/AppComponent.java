@@ -3,6 +3,7 @@ package com.app.repocommit.di;
 import android.app.Application;
 
 import com.app.repocommit.BaseApplication;
+import com.app.repocommit.SessionManager;
 
 import javax.inject.Singleton;
 
@@ -22,6 +23,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
                 ViewModelFactoryModule.class
         })
 public interface AppComponent extends AndroidInjector<BaseApplication> {
+
+    SessionManager sessionManager(); //live entire app context.
 
     @Component.Builder
     interface Builder{

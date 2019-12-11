@@ -1,7 +1,6 @@
 package com.app.repocommit.ui.auth;
 
 import android.util.Log;
-import android.widget.ProgressBar;
 
 import com.app.repocommit.models.User;
 import com.app.repocommit.network.auth.AuthApi;
