@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RepoCommit</string>
+    <string name="logout">Log me out!</string>
 </resources>

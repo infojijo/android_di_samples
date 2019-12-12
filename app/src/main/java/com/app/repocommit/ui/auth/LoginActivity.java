@@ -85,7 +85,7 @@ public class LoginActivity extends DaggerAppCompatActivity implements View.OnCli
                         case NOT_AUTHENTICATED: {
                             showProgressBar(false);
                             Toast.makeText(getApplicationContext(),
-                                    "Authentication Issue",
+                                    "Please authenticate",
                                     Toast.LENGTH_SHORT).show();
                             break;
                         }
@@ -107,8 +107,10 @@ public class LoginActivity extends DaggerAppCompatActivity implements View.OnCli
 
     private void showLoginDetails(AuthResource<User> user) {
         //hiding the soft keyboard
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        if (getCurrentFocus().getWindowToken() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
         //setting the text
         userLoginStatus.setText(user.data.getEmail() + " Logged In");
         Log.d(TAG, "showLoginDetails: - LoggedIn");
