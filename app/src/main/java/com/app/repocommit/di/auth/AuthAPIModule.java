@@ -7,7 +7,7 @@ import dagger.Provides;
 import retrofit2.Retrofit;
 
 @Module
-public class AuthModule {
+public class AuthAPIModule {
 
     @Provides
     static AuthApi provideAuthApi(Retrofit retrofit) {
