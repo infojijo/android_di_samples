@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.app.repocommit.BaseActivity;
 import com.app.repocommit.R;
+import com.app.repocommit.ui.main.profile.ProfileFragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +19,15 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toast.makeText(this, "Logged Into Main Activity", Toast.LENGTH_SHORT).show();
+        TestFragment();
+    }
+
+    //for initiating the Profile Fragment.
+    private void TestFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_container, new ProfileFragment())
+                .commit();
+
     }
 
     @Override

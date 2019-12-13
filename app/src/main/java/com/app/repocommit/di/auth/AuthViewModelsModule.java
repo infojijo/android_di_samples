@@ -1,4 +1,4 @@
-package com.app.repocommit.di.main;
+package com.app.repocommit.di.auth;
 
 import com.app.repocommit.di.ViewModelKey;
 import com.app.repocommit.ui.auth.AuthViewModel;
