@@ -1,17 +1,12 @@
 package com.app.repocommit.ui.main.post;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.app.repocommit.R;
-import com.app.repocommit.models.Post;
-import com.app.repocommit.ui.main.Resource;
 import com.app.repocommit.viewmodel.ViewModelProviderFactory;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -22,8 +17,9 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import dagger.android.support.DaggerFragment;
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
-
+/**
+ * fragment displays user posts
+ */
 public class PostFragment extends DaggerFragment {
 
     private RecyclerView recyclerView;
@@ -44,17 +40,7 @@ public class PostFragment extends DaggerFragment {
         postViewModel = ViewModelProviders
                 .of(this, providerFactory)
                 .get(PostViewModel.class);
-        subscribePostObservers();
-    }
 
-    private void subscribePostObservers() {
-        postViewModel.observePost().removeObservers(getViewLifecycleOwner());
-        postViewModel.observePost().observe(this, new Observer<Resource<List<Post>>>() {
-            @Override
-            public void onChanged(Resource<List<Post>> listResource) {
-                if(listResource!=null){
-                Log.d(TAG, "onChanged POST SIZE ->"+listResource.data);
-            }}
-        });
+
     }
 }
