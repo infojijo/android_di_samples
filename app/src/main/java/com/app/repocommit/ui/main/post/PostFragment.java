@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.app.repocommit.R;
 import com.app.repocommit.models.Post;
 import com.app.repocommit.ui.main.Resource;
+import com.app.repocommit.util.VerticalSpacingItemDecoration;
 import com.app.repocommit.viewmodel.ViewModelProviderFactory;
 
 import java.util.List;
@@ -19,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import dagger.android.support.DaggerFragment;
 
@@ -31,6 +33,9 @@ public class PostFragment extends DaggerFragment {
     private PostViewModel postViewModel;
 
     private static final String TAG = "PostFragment";
+
+    @Inject
+    PostsRecyclerAdapter adapter;
 
     @Inject
     ViewModelProviderFactory providerFactory;
@@ -48,6 +53,7 @@ public class PostFragment extends DaggerFragment {
                 .of(this, providerFactory)
                 .get(PostViewModel.class);
         subscribePostObservers();
+        initRecyclerView();
     }
 
     private void subscribePostObservers() {
@@ -56,8 +62,32 @@ public class PostFragment extends DaggerFragment {
             @Override
             public void onChanged(Resource<List<Post>> listResource) {
                 if(listResource!=null){
-                Log.d(TAG, "onChanged POST SIZE ->"+listResource.data);
+                switch (listResource.status){
+                    case LOADING:{
+                        Log.d(TAG, "onChanged: LOADING...");
+                        break;
+                    }
+                    case SUCCESS:{
+                        Log.d(TAG, "onChanged: SUCCESS...");
+                        adapter.setPosts(listResource.data);
+                        break;
+                    }
+                    case ERROR:{
+                        Log.e(TAG, "onChanged: ERROR.." + listResource.message);
+                        break;
+                    }
+                }
             }}
         });
     }
+
+    private void initRecyclerView(){
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        VerticalSpacingItemDecoration verticalSpacingItemDecoration
+                = new VerticalSpacingItemDecoration(15);
+        recyclerView.addItemDecoration(verticalSpacingItemDecoration);
+        recyclerView.setAdapter(adapter);
+
+    }
+
 }
