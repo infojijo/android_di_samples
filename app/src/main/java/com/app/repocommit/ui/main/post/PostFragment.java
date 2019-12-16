@@ -16,6 +16,9 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import dagger.android.support.DaggerFragment;
 
+/**
+ * fragment displays user posts
+ */
 public class PostFragment extends DaggerFragment {
 
     private RecyclerView recyclerView;
