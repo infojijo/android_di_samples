@@ -17,9 +17,9 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Singleton // scope added to the component
 @Component(
         modules = {
-                AndroidSupportInjectionModule.class,
-                ActvityBuilderModule.class,
-                ApplicationModule.class,
+                AndroidSupportInjectionModule.class, // to use android injection modules.
+                ActvityBuilderModule.class, // responsible for sub components.
+                ApplicationModule.class, // application level dependency module.
                 ViewModelFactoryModule.class
         })
 public interface AppComponent extends AndroidInjector<BaseApplication> {

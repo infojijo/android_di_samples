@@ -38,7 +38,6 @@ public abstract class BaseActivity extends DaggerAppCompatActivity {
         sessionManager.getAuthUser().observe(this, new Observer<AuthResource<User>>() {
             @Override
             public void onChanged(AuthResource<User> userAuthResource) {
-
                 if (userAuthResource != null) {
                     switch (userAuthResource.status) {
                         case LOADING: {
@@ -56,10 +55,8 @@ public abstract class BaseActivity extends DaggerAppCompatActivity {
                             Log.d(TAG, "onChanged: error while authenticating");
                             break;
                         }
-
                     }
                 }
-
             }
         });
     }

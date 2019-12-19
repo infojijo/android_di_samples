@@ -24,6 +24,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class ApplicationModule {
 
+    /**
+     * @return Retrofit Instance provided - global to the app as @Singleton
+     * static methods are more efficient.
+     */
     @Singleton
     @Provides
     static Retrofit provideRetrofitInstance() {

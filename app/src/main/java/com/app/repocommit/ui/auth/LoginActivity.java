@@ -37,6 +37,7 @@ public class LoginActivity extends DaggerAppCompatActivity implements View.OnCli
     private Button userLogin;
     private TextView userLoginStatus;
     private ProgressBar progressBar;
+
     //Viewmodel factory injection
     @Inject
     ViewModelProviderFactory providerFactory;
@@ -54,7 +55,6 @@ public class LoginActivity extends DaggerAppCompatActivity implements View.OnCli
         setLogo();
 
         //instantiating the viewmodel factory
-
         authViewModel = ViewModelProviders.of(this, providerFactory)
                 .get(AuthViewModel.class);
 
