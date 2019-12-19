@@ -18,7 +18,9 @@ import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity
+        extends BaseActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "MainActivity";
 
@@ -35,7 +37,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         init();
     }
 
-    private void init(){
+    private void init() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout);
         NavigationUI.setupWithNavController(navigationView, navController);
@@ -45,26 +47,29 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-        switch(menuItem.getItemId()){
-
-            case R.id.nav_profile:{
-
-                Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.profileScreen);
-
+        switch (menuItem.getItemId()) {
+            case R.id.nav_profile: {
+                //extra navigation option -
+                //here its used for clearing the backstack when you navigate to profile
+                NavOptions navOptions = new NavOptions.Builder()
+                        .setPopUpTo(R.id.main, true)
+                        .build();
+                Navigation.findNavController(this, R.id.nav_host_fragment)
+                        .navigate(R.id.profileScreen,
+                                null,
+                                navOptions);
                 break;
             }
-
-            case R.id.nav_posts:{
-
-                Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.postsScreen);
-
+            case R.id.nav_posts: {
+                if (isValidDestination(R.id.postsScreen)) {
+                    Navigation.findNavController(this, R.id.nav_host_fragment)
+                            .navigate(R.id.postsScreen);
+                }
                 break;
             }
         }
         menuItem.setChecked(true);
         drawerLayout.closeDrawer(GravityCompat.START);
-
         return true;
     }
 
@@ -78,15 +83,42 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
 
-            case R.id.logout:{
+            case R.id.logout: {
                 sessionManager.logout();
                 return true;
+            }
+            case android.R.id.home: {
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    return true; // to consume the click
+                } else {
+                    return false; // not to consume click
+                }
             }
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * @return to enable the support of drawer layout in navigationUI.
+     */
+    @Override
+    public boolean onSupportNavigateUp() {
+        return NavigationUI.navigateUp(Navigation
+                .findNavController(this, R.id.nav_host_fragment), drawerLayout);
+    }
+
+    /**
+     * @param destination -id of the fragment
+     * @return if the destination of the click is already the origin.
+     */
+    private boolean isValidDestination(int destination) {
+        return destination !=
+                Navigation.findNavController(this, R.id.nav_host_fragment)
+                        .getCurrentDestination().getId();
     }
 }
 

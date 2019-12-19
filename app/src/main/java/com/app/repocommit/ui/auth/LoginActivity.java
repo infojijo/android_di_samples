@@ -117,6 +117,7 @@ public class LoginActivity extends DaggerAppCompatActivity implements View.OnCli
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private void showProgressBar(boolean isVisible) {
