@@ -36,8 +36,7 @@ public class AuthViewModel extends ViewModel {
                             @Override
                             public User apply(Throwable throwable) throws Exception {
                                 //error user dummy object
-                                User errorUser = new User();
-                                errorUser.setId(-1);
+                                User errorUser = new User(-1,null,null,null);
                                 return errorUser;
                             }
                         })

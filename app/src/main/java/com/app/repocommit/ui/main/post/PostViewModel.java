@@ -33,7 +33,6 @@ public class PostViewModel extends ViewModel {
     public PostViewModel(SessionManager sessionManager, MainApi mainApi) {
         this.sessionManager = sessionManager;
         this.mainApi = mainApi;
-        Log.d(TAG, "PostViewModel: is WORKING..");
     }
 
     public LiveData<Resource<List<Post>>> observePost() {
@@ -43,10 +42,10 @@ public class PostViewModel extends ViewModel {
             posts.setValue(Resource.loading((List<Post>) null));
 
             //convert rx to livedata
-            final LiveData<Resource<List<Post>>> source = LiveDataReactiveStreams
+            final LiveData<Resource<List<Post>>> source;
+            source = LiveDataReactiveStreams
                     .fromPublisher(mainApi
-                            .getPosts(sessionManager
-                                    .getAuthUser().getValue().data.getId())
+                            .getPosts(sessionManager.getAuthUser().getValue().data.getId())
                             .onErrorReturn(new Function<Throwable, List<Post>>() {
                                 @Override
                                 public List<Post> apply(Throwable throwable)
@@ -54,8 +53,7 @@ public class PostViewModel extends ViewModel {
 
                                     Log.e(TAG, "apply: ", throwable);
 
-                                    Post post = new Post();
-                                    post.setId(-1);
+                                    Post post = new Post(-1,1,"-1","-1");
                                     ArrayList<Post> posts = new ArrayList<>();
                                     posts.add(post);
                                     return posts;

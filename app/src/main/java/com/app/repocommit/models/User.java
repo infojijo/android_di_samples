@@ -5,6 +5,13 @@ import com.google.gson.annotations.SerializedName;
 
 public class User {
 
+    public User(int id, String username, String email, String website) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.website = website;
+    }
+
     @SerializedName("id")
     @Expose
     private int id;
